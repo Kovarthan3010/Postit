@@ -1,0 +1,8 @@
+.navbarcss
+{
+display: flex;
+flex-direction: column;
+width : 300px;
+border : 2px solid blue;
+border-radius: 5px;
+}
