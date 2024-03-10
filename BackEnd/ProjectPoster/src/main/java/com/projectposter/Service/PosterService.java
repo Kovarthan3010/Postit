@@ -21,4 +21,5 @@ public interface PosterService {
 	List<String> getallTitle() throws PostingNotFoundException;
 	List<String> getallAuthors() throws PostingNotFoundException;
 	void increaserating(long id);
+	Optional<List<Poster>> getMyPosts(String user)throws PostingNotFoundException;
 }

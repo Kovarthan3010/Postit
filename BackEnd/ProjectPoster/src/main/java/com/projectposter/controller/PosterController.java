@@ -1,5 +1,6 @@
 package com.projectposter.controller;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -27,6 +28,7 @@ import com.projectposter.Error.ErrorMessage;
 import com.projectposter.Exceptions.PosterNotUpdatedException;
 import com.projectposter.Exceptions.PostingNotFoundException;
 import com.projectposter.Service.PosterService;
+import com.projectposter.Service.userService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
@@ -41,6 +43,8 @@ public class PosterController {
 	PosterService posterservice;
 	@Autowired
 	ErrorMessage errormsg;
+	@Autowired
+	userService userservice;
 	
 	@PostMapping(value="/post",consumes="application/json")
 	public String post(@Valid @RequestBody Poster poster,Errors errors)
@@ -72,6 +76,15 @@ public class PosterController {
 		
 		List<Poster> response=posterservice.postings();
 		return ResponseEntity.ok(response);
+	}
+	
+	//Get my posts
+	
+	@GetMapping(value="/myposts")
+	public ResponseEntity<Optional<List<Poster>>> getMyPosts(Principal principal) throws PostingNotFoundException
+	{
+		String username = userservice.user(principal);
+		return ResponseEntity.ok(posterservice.getMyPosts(username));
 	}
 	@GetMapping(value="/postingsById/{id}",produces="application/json")
 	public ResponseEntity<Optional<Poster>> postingbyId(@PathVariable("id") 

@@ -132,25 +132,12 @@ public class PosterServiceImpl implements PosterService {
 	@Override
 	@Transactional
 	public synchronized void increaserating(long id) {
-		// TODO Auto-generated method stub
-//		Optional<Poster> poster=posterrepo.findById(id);
-//		
-//		Poster post=new Poster();
-//		
-//		
-//		post.setAuthor(poster.get().getAuthor());
-//		post.setItems(poster.get().getItems());
-//		post.setPostedOnDate(poster.get().getPostedOnDate());
-//		post.setPostedOnTime(poster.get().getPostedOnTime());
-//		post.setRating(poster.get().getRating()+1);
-//		post.setTitle(poster.get().getTitle());
-//		
-//		posterrepo.deleteById(id);
-//		
-//
-//		
-//		posterrepo.save(post);
-		
+		// TODO Auto-generated method stub	
 		posterrepo.increaselikecount(id);	}
+	@Override
+	public Optional<List<Poster>> getMyPosts(String user) throws PostingNotFoundException {
+		// TODO Auto-generated method stub
+		return posterrepo.findByAuthor(user);
+	}
 
 }
